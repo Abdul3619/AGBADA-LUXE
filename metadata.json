@@ -1,0 +1,6 @@
+{
+  "name": "Agbada Luxe",
+  "description": "An editorial digital showcase for Agbada Luxe, a premium luxury African fashion house blending West African cultural heritage with modern architectural tailoring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
