@@ -1,188 +1,114 @@
-import React from "react";
-import { motion } from "motion/react";
-import { Link, useNavigate } from "react-router-dom";
-import { brandCopy } from "../data";
-import { Sparkles, ChevronDown, Compass, Scissors, Sparkle, ArrowRight } from "lucide-react";
+import { ArrowRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
+import heroImage from '../assets/images/hero-agbada.jpg';
+import bespokeImage from '../assets/images/bespoke-suit.jpg';
+import ceremonialImage from '../assets/images/ceremonial.jpg';
+import { ProductCard } from '../components/ProductCard';
+import { Reveal } from '../components/Reveal';
+import { ErrorNote, GridSkeleton } from '../components/States';
+import { safeExternalUrl } from '../lib/format';
+import { useProducts } from '../lib/useProducts';
+import { useSettings } from '../lib/settings';
+import { useTitle } from '../lib/useTitle';
 
 export default function Home() {
-  const navigate = useNavigate();
-
-  const featuredCollections = [
-    {
-      name: "Agbada Luxe",
-      tagline: "The Signature Royal Silhouettes",
-      desc: "Our signature collection capturing Yoruba royal volume, hand-woven on historic horizontal looms in Iseyin and basted with gold threadwork.",
-      image: "https://picsum.photos/seed/agbada/800/600",
-      link: "/collections/Agbada Luxe"
-    },
-    {
-      name: "SS24",
-      tagline: "Savile Row Modern Fusion",
-      desc: "A breathtaking cross-cultural study. Elongated tuxedo silhouettes, relaxed unstructured mohair sleeves, and organic indigo dyed coats.",
-      image: "https://picsum.photos/seed/suit/800/600",
-      link: "/collections/SS24"
-    },
-    {
-      name: "Heritage Noir",
-      tagline: "Monochromatic Obsidian Craft",
-      desc: "Delving into high-contrast obsidian textiles. Royal Gele ensembles, heavy damask brocades, and avant-garde structural shapes.",
-      image: "https://picsum.photos/seed/trad/800/600",
-      link: "/collections/Heritage Noir"
-    }
-  ];
+  useTitle();
+  const { settings } = useSettings();
+  const { products, error, loading } = useProducts();
+  const hero = safeExternalUrl(settings.hero_image_url) ?? heroImage;
+  const featured = products?.slice(0, 6) ?? [];
 
   return (
-    <div className="pt-20">
-      {/* Immersive Editorial Hero Segment */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 text-center overflow-hidden border-b border-warm-gold/15">
-        {/* Subtle grid watermark */}
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(212,175,55,0.08)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none" />
-
-        {/* Hero Copy Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="z-10 max-w-4xl mx-auto space-y-6 pt-12"
-        >
-          {/* Atelier Badge */}
-          <div className="inline-flex items-center space-x-2 px-3 py-1 bg-charcoal/80 border border-warm-gold/35 text-[10px] uppercase tracking-[0.35em] text-warm-gold font-syne rounded-full">
-            <Sparkles className="w-3 h-3 animate-pulse" />
-            <span>Atelier Haute Couture</span>
-          </div>
-
-          {/* Majestic Title */}
-          <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tight text-cream">
-            AGBADA <span className="font-light italic text-warm-gold">LUXE</span>
-          </h1>
-
-          <div className="h-[1.5px] w-24 bg-warm-gold mx-auto my-4" />
-
-          {/* Subtitle / Core Ethos */}
-          <p className="font-syne text-xs sm:text-sm uppercase tracking-[0.4em] text-bronze max-w-xl mx-auto leading-relaxed">
-            Architectural Precision Meets West African Heritage
-          </p>
-
-          {/* Editorial copy blocks */}
-          <p className="font-sans text-sm sm:text-base text-cream/80 max-w-2xl mx-auto leading-relaxed tracking-wide pt-4">
-            {brandCopy.editorialIntro.text}
-          </p>
-
-          {/* Call to Actions */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-8">
-            <Link
-              id="hero-lookbook-cta"
-              to="/the-lookout"
-              className="w-full sm:w-auto px-8 py-3 bg-warm-gold hover:bg-cream text-obsidian font-syne text-xs uppercase tracking-widest font-bold transition-all duration-300 rounded-sm text-center"
-            >
-              Explore Lookbook
-            </Link>
-            <Link
-              id="hero-atelier-cta"
-              to="/about"
-              className="w-full sm:w-auto px-8 py-3 bg-transparent border border-cream/25 hover:border-warm-gold hover:text-warm-gold font-syne text-xs uppercase tracking-widest transition-all duration-300 rounded-sm text-center"
-            >
-              The Atelier Philosophy
-            </Link>
-          </div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center space-y-2 opacity-60 hover:opacity-100 transition-opacity">
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-cream/50">Scroll to Explore</span>
-          <ChevronDown className="w-4 h-4 text-warm-gold animate-bounce" />
-        </div>
-      </section>
-
-      {/* Featured Collections Teaser Section */}
-      <section className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 border-b border-warm-gold/10">
-        <div className="text-center mb-16 space-y-3">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-warm-gold">Our House Portfolios</span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-medium text-cream">
-            The Haute <span className="font-light italic text-warm-gold">Collections</span>
-          </h2>
-          <div className="h-[1px] w-12 bg-warm-gold/30 mx-auto pt-1" />
-          <p className="font-sans text-sm text-cream/70 max-w-xl mx-auto">
-            Browse our three pillars of modern West African geometry, each crafted to command space and hold architectural gravity.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {featuredCollections.map((col, idx) => (
-            <motion.div
-              key={col.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className="group bg-charcoal/30 border border-warm-gold/15 rounded-sm overflow-hidden flex flex-col justify-between"
-            >
-              <div>
-                <div className="relative h-64 overflow-hidden bg-charcoal border-b border-warm-gold/10">
-                  <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-60 z-10" />
-                  <img
-                    src={col.image}
-                    alt={col.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute bottom-4 left-4 z-20">
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-warm-gold bg-obsidian/80 px-2 py-1 rounded-sm border border-warm-gold/20">
-                      Portfolio {idx + 1}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6 space-y-2">
-                  <h3 className="font-serif text-xl font-bold text-cream group-hover:text-warm-gold transition-colors">
-                    {col.name}
-                  </h3>
-                  <p className="font-syne text-[10px] uppercase tracking-wider text-bronze font-medium">
-                    {col.tagline}
-                  </p>
-                  <p className="font-sans text-xs text-cream/70 leading-relaxed pt-2">
-                    {col.desc}
-                  </p>
-                </div>
-              </div>
-              <div className="p-6 pt-0">
-                <Link
-                  id={`home-collection-btn-${col.name.replace(/\s+/g, "-")}`}
-                  to={col.link}
-                  className="inline-flex items-center space-x-2 text-xs font-mono text-warm-gold uppercase tracking-wider hover:text-cream transition-colors group-hover:translate-x-1 duration-300"
-                >
-                  <span>Explore Silhouette Range</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Philosophy Teaser / Interactive CTA Section */}
-      <section className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 text-center space-y-8">
-        <div className="max-w-3xl mx-auto space-y-6">
-          <div className="flex justify-center">
-            <div className="p-3 rounded-full bg-charcoal/50 border border-warm-gold/20">
-              <Scissors className="w-6 h-6 text-warm-gold animate-pulse" />
+    <>
+      <section className="relative flex min-h-[100svh] items-end overflow-hidden">
+        <motion.img
+          src={hero}
+          alt=""
+          initial={{ scale: 1.06, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 h-full w-full object-cover object-[center_20%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/20" />
+        <div className="container-luxe relative pb-20 pt-40 md:pb-28">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}>
+            <p className="eyebrow">Agbada · Ceremonial · Bespoke</p>
+            <h1 className="display mt-6 max-w-4xl text-[3.25rem] text-ivory sm:text-7xl lg:text-[6.5rem]">
+              {settings.tagline || <>Dressed for the <em className="text-gold-soft">occasion</em> that matters.</>}
+            </h1>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link to="/collection" className="btn btn-solid">View the collection</Link>
+              <Link to="/consultation" className="btn btn-outline">Book a consultation</Link>
             </div>
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-light text-cream leading-snug">
-            Every garment begins with a <span className="font-medium italic text-warm-gold">Basted Skeleton</span>.
-          </h2>
-          <p className="font-sans text-sm text-cream/80 max-w-2xl mx-auto leading-relaxed">
-            Experience our dynamic fitting customizer where raw linen, Yorkshire wools, and Nigerian Aso-Oke are sculpted on structural coordinates. Discover how your physical posture commands architectural balance.
-          </p>
-          <div className="flex justify-center pt-4">
-            <Link
-              id="home-philosophy-btn"
-              to="/about"
-              className="px-6 py-3 bg-charcoal/50 hover:bg-warm-gold hover:text-obsidian border border-warm-gold/30 hover:border-warm-gold text-warm-gold font-syne text-xs uppercase tracking-widest transition-all duration-300 rounded-sm"
-            >
-              Launch Virtual Customizer
-            </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
-    </div>
+
+      {settings.intro && (
+        <section className="container-luxe py-28 md:py-40">
+          <Reveal className="mx-auto max-w-3xl text-center">
+            <p className="font-serif text-3xl leading-snug text-ivory md:text-[2.6rem] md:leading-[1.25]">{settings.intro}</p>
+          </Reveal>
+        </section>
+      )}
+
+      <section className={`container-luxe ${settings.intro ? '' : 'pt-28 md:pt-40'}`}>
+        <Reveal className="mb-14 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow">The collection</p>
+            <h2 className="display mt-4 text-5xl text-ivory md:text-6xl">Current pieces</h2>
+          </div>
+          {featured.length > 0 && (
+            <Link to="/collection" className="group inline-flex items-center gap-3 text-[0.6875rem] uppercase tracking-[0.28em] text-sand hover:text-gold">
+              View all <ArrowRight size={14} strokeWidth={1.25} className="transition-transform duration-500 group-hover:translate-x-1" />
+            </Link>
+          )}
+        </Reveal>
+        {loading && <GridSkeleton />}
+        {error && <ErrorNote message={error} />}
+        {products && featured.length === 0 && (
+          <div className="border border-line px-8 py-16 text-center">
+            <p className="font-serif text-3xl text-ivory">The collection is being prepared.</p>
+            <p className="mx-auto mt-4 max-w-md text-sand">New pieces will appear here soon. In the meantime, every garment can be made to order.</p>
+            <Link to="/consultation" className="btn btn-outline mt-8">Commission a piece</Link>
+          </div>
+        )}
+        {featured.length > 0 && (
+          <div className="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((p, i) => (
+              <Reveal key={p.id} delay={(i % 3) * 0.12}><ProductCard product={p} eager={i < 3} /></Reveal>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="container-luxe mt-32 grid items-center gap-12 md:mt-44 md:grid-cols-12 md:gap-16">
+        <Reveal className="md:col-span-6">
+          <div className="img-zoom aspect-[3/4] overflow-hidden">
+            <img src={bespokeImage} alt="A tailored suit" loading="lazy" className="h-full w-full object-cover" />
+          </div>
+        </Reveal>
+        <Reveal delay={0.15} className="md:col-span-5 md:col-start-8">
+          <p className="eyebrow">Made to measure</p>
+          <h2 className="display mt-5 text-5xl text-ivory md:text-6xl">Cut for you, <em className="text-gold-soft">and only you.</em></h2>
+          <p className="mt-6 text-lg text-sand">
+            Every piece can be commissioned to your measurements. Begin with a private consultation to discuss the occasion,
+            the cloth and the details.
+          </p>
+          <Link to="/consultation" className="btn btn-outline mt-10">Arrange a consultation</Link>
+        </Reveal>
+      </section>
+
+      <section className="relative mt-32 overflow-hidden md:mt-44">
+        <img src={ceremonialImage} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[center_30%]" />
+        <div className="absolute inset-0 bg-ink/70" />
+        <Reveal className="container-luxe relative py-32 text-center md:py-48">
+          <p className="eyebrow">Ceremonial wear</p>
+          <h2 className="display mx-auto mt-6 max-w-3xl text-5xl text-ivory md:text-7xl">For weddings, naming days and every celebration in between.</h2>
+          <Link to="/contact" className="btn btn-solid mt-12">Get in touch</Link>
+        </Reveal>
+      </section>
+    </>
   );
 }
