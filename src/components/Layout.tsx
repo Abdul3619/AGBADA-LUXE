@@ -178,6 +178,12 @@ function Footer() {
       <div className="container-luxe flex flex-col gap-3 border-t border-line py-8 text-xs tracking-wide text-stone sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} Agbada Luxe. All rights reserved.</p>
         {settings.address && <p>{settings.address}</p>}
+        <p>
+          Built by Abdulwahab Abdullahi ·{' '}
+          <a href="mailto:abdulwahababdullahi3619@gmail.com" className="link-underline text-sand hover:text-gold">
+            Contact the developer
+          </a>
+        </p>
       </div>
     </footer>
   );
