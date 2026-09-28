@@ -1,7 +1,6 @@
 # Agbada Luxe
 
-Website and owner dashboard for Agbada Luxe: a public collection, product pages, consultation bookings, a contact form
-and a newsletter sign-up, all managed from a password-protected studio at `/admin`.
+I built this website and owner dashboard for Agbada Luxe. It has a public collection, product pages, consultation bookings, a contact form and a newsletter sign-up, and the owner manages all of it from a password-protected studio at `/admin`.
 
 ## Stack
 
