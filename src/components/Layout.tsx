@@ -8,6 +8,7 @@ import { useSettings } from '../lib/settings';
 
 const NAV = [
   { to: '/collection', label: 'Collection' },
+  { to: '/lookbook', label: 'Lookbook' },
   { to: '/consultation', label: 'Consultation' },
   { to: '/about', label: 'The House' },
   { to: '/contact', label: 'Contact' },
@@ -91,12 +92,14 @@ function Newsletter() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError('');
-    setState('sending');
+    // Optimistic: thank the visitor at once; if the request fails, restore the address and show why.
+    const submitted = email.trim();
+    setState('done');
+    setEmail('');
     try {
-      await subscribe(email.trim());
-      setState('done');
-      setEmail('');
+      await subscribe(submitted);
     } catch (err) {
+      setEmail(submitted);
       setError(errorMessage(err));
       setState('idle');
     }
@@ -148,7 +151,7 @@ function Footer() {
           <div>
             <p className="eyebrow !text-stone">Explore</p>
             <ul className="mt-5 space-y-3 text-sand">
-              {NAV.map((item) => (
+              {[...NAV, { to: '/size-guide', label: 'Size guide' }].map((item) => (
                 <li key={item.to}><Link to={item.to} className="link-underline hover:text-ivory">{item.label}</Link></li>
               ))}
             </ul>

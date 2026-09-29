@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ceremonialImage from '../assets/images/ceremonial.jpg';
+import { IMAGES } from '../lib/images';
 import { Reveal } from '../components/Reveal';
 import { useSettings } from '../lib/settings';
 import { useTitle } from '../lib/useTitle';
@@ -32,7 +32,7 @@ export default function About() {
         </Reveal>
         <Reveal delay={0.15} className="md:col-span-5 md:col-start-8">
           <div className="aspect-[3/4] overflow-hidden">
-            <img src={ceremonialImage} alt="" className="h-full w-full object-cover" />
+            <img {...IMAGES.ceremonial} sizes="(min-width: 768px) 50vw, 100vw" decoding="async" alt="" loading="lazy" className="h-full w-full object-cover" />
           </div>
         </Reveal>
       </div>

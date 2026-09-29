@@ -7,7 +7,9 @@ import Collection from './pages/Collection';
 import Consultation from './pages/Consultation';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
+import Lookbook from './pages/Lookbook';
 import NotFound from './pages/NotFound';
+import SizeGuide from './pages/SizeGuide';
 import ProductPage from './pages/Product';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
@@ -22,6 +24,8 @@ export default function App() {
             <Route path="collection" element={<Collection />} />
             <Route path="collection/:id" element={<ProductPage />} />
             <Route path="consultation" element={<Consultation />} />
+            <Route path="lookbook" element={<Lookbook />} />
+            <Route path="size-guide" element={<SizeGuide />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="the-lookout" element={<Navigate to="/collection" replace />} />

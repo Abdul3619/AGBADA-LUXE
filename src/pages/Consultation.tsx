@@ -1,4 +1,4 @@
-import bespokeImage from '../assets/images/bespoke-suit.jpg';
+import { IMAGES } from '../lib/images';
 import { BookingForm } from '../components/BookingForm';
 import { Reveal } from '../components/Reveal';
 import { useSettings } from '../lib/settings';
@@ -24,7 +24,7 @@ export default function Consultation() {
             </div>
           )}
           <div className="mt-12 hidden aspect-[3/4] overflow-hidden lg:block">
-            <img src={bespokeImage} alt="" loading="lazy" className="h-full w-full object-cover" />
+            <img {...IMAGES.bespoke} sizes="33vw" alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
           </div>
         </Reveal>
         <Reveal delay={0.15} className="lg:col-span-7 lg:col-start-6">

@@ -93,9 +93,11 @@
     font-weight: 400;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    transition: background-color 500ms var(--ease-luxe), color 500ms var(--ease-luxe), border-color 500ms var(--ease-luxe);
+    transition: background-color 500ms var(--ease-luxe), color 500ms var(--ease-luxe), border-color 500ms var(--ease-luxe), transform 150ms ease;
     cursor: pointer;
   }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  @media (prefers-reduced-motion: reduce) { .btn:active:not(:disabled) { transform: none; filter: brightness(0.9); } }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-solid { background: var(--color-ivory); color: var(--color-ink); border: 1px solid var(--color-ivory); }
   .btn-solid:hover:not(:disabled) { background: var(--color-gold); border-color: var(--color-gold); }
@@ -160,3 +162,45 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Shared across the portfolio demos (dark theme tint below) */
+
+/* Loading skeletons: a placeholder block with a diagonal silver shimmer.
+   With reduced motion the sweep is replaced by a slow, gentle fade. */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(148, 148, 160, 0.18);
+  border-radius: 6px;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(110deg, transparent 20%, rgba(235, 238, 245, 0.45) 45%, rgba(255, 255, 255, 0.6) 50%, rgba(235, 238, 245, 0.45) 55%, transparent 80%);
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+@keyframes skeleton-shimmer {
+  to { transform: translateX(100%); }
+}
+@keyframes skeleton-fade {
+  50% { opacity: 0.55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after { animation: none; opacity: 0; }
+  .skeleton { animation: skeleton-fade 2.4s ease-in-out infinite; }
+}
+
+/* Small, consistent press feedback for buttons and button-like links */
+.press {
+  transition: transform 150ms ease, filter 150ms ease;
+}
+.press:active {
+  transform: scale(0.97);
+}
+@media (prefers-reduced-motion: reduce) {
+  .press:active { transform: none; filter: brightness(0.92); }
+}
+.skeleton { background-color: var(--color-charcoal); border-radius: 0; }
+.skeleton::after { background: linear-gradient(110deg, transparent 20%, rgba(200, 196, 188, 0.10) 45%, rgba(230, 226, 218, 0.16) 50%, rgba(200, 196, 188, 0.10) 55%, transparent 80%); }
