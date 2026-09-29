@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Product } from '../lib/api';
 import { formatPrice } from '../lib/format';
@@ -10,14 +11,25 @@ export function ProductImage({ product, eager = false }: { product: Pick<Product
       </div>
     );
   }
+  return <LoadingImage src={product.image_url} alt={product.name} eager={eager} />;
+}
+
+// Shows the shimmer skeleton until the photo has loaded.
+function LoadingImage({ src, alt, eager }: { src: string; alt: string; eager: boolean }) {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <img
-      src={product.image_url}
-      alt={product.name}
-      loading={eager ? 'eager' : 'lazy'}
-      decoding="async"
-      className="h-full w-full object-cover"
-    />
+    <div className={`h-full w-full ${loaded ? '' : 'skeleton'}`}>
+      <img
+        src={src}
+        alt={alt}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        ref={(el) => { if (el?.complete && el.naturalWidth > 0 && !loaded) setLoaded(true); }}
+        onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
+        className={`h-full w-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+      />
+    </div>
   );
 }
 

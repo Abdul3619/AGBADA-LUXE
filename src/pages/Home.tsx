@@ -1,9 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import heroImage from '../assets/images/hero-agbada.jpg';
-import bespokeImage from '../assets/images/bespoke-suit.jpg';
-import ceremonialImage from '../assets/images/ceremonial.jpg';
+import { IMAGES } from '../lib/images';
 import { ProductCard } from '../components/ProductCard';
 import { Reveal } from '../components/Reveal';
 import { ErrorNote, GridSkeleton } from '../components/States';
@@ -16,14 +14,19 @@ export default function Home() {
   useTitle();
   const { settings } = useSettings();
   const { products, error, loading } = useProducts();
-  const hero = safeExternalUrl(settings.hero_image_url) ?? heroImage;
+  // A hero image set in the admin dashboard replaces the built-in photo.
+  const customHero = safeExternalUrl(settings.hero_image_url);
+  const hero = customHero ? { src: customHero, srcSet: undefined } : IMAGES.hero;
   const featured = products?.slice(0, 6) ?? [];
 
   return (
     <>
       <section className="relative flex min-h-[100svh] items-end overflow-hidden">
         <motion.img
-          src={hero}
+          src={hero.src}
+          srcSet={hero.srcSet}
+          sizes="100vw"
+          fetchPriority="high"
           alt=""
           initial={{ scale: 1.06, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -86,7 +89,7 @@ export default function Home() {
       <section className="container-luxe mt-32 grid items-center gap-12 md:mt-44 md:grid-cols-12 md:gap-16">
         <Reveal className="md:col-span-6">
           <div className="img-zoom aspect-[3/4] overflow-hidden">
-            <img src={bespokeImage} alt="A tailored suit" loading="lazy" className="h-full w-full object-cover" />
+            <img {...IMAGES.bespoke} sizes="(min-width: 768px) 50vw, 100vw" alt="A tailored suit" loading="lazy" decoding="async" className="h-full w-full object-cover" />
           </div>
         </Reveal>
         <Reveal delay={0.15} className="md:col-span-5 md:col-start-8">
@@ -101,7 +104,7 @@ export default function Home() {
       </section>
 
       <section className="relative mt-32 overflow-hidden md:mt-44">
-        <img src={ceremonialImage} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[center_30%]" />
+        <img {...IMAGES.ceremonial} sizes="100vw" alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[center_30%]" />
         <div className="absolute inset-0 bg-ink/70" />
         <Reveal className="container-luxe relative py-32 text-center md:py-48">
           <p className="eyebrow">Ceremonial wear</p>
