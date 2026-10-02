@@ -13,6 +13,7 @@ import SizeGuide from './pages/SizeGuide';
 import ProductPage from './pages/Product';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
+const MagicLink = lazy(() => import('./admin/MagicLink'));
 
 export default function App() {
   return (
@@ -31,6 +32,14 @@ export default function App() {
             <Route path="the-lookout" element={<Navigate to="/collection" replace />} />
             <Route path="*" element={<NotFound />} />
           </Route>
+          <Route
+            path="admin/magic/:token"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-ink" />}>
+                <MagicLink />
+              </Suspense>
+            }
+          />
           <Route
             path="admin/*"
             element={

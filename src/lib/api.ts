@@ -152,6 +152,16 @@ export async function login(email: string, password: string): Promise<Session> {
 
 export const logout = (token: string) => rpc<void>('agbada_admin_logout', { p_token: token });
 
+// Exchanges a one-time magic-link token (minted elsewhere -- see agbada_admin_create_magic_link, which only the
+// portfolio's AI assistant can call) for a real admin session, the same shape login() returns. The link itself is
+// single-use and expires after 10 minutes.
+export async function consumeMagicLink(linkToken: string): Promise<Session> {
+  const [row] = await rpc<{ ok: boolean; error: string | null; token: string; expires_at: string }[]>(
+    'agbada_admin_consume_magic_link', { p_link_token: linkToken });
+  if (!row?.ok) throw toApiError({ message: row?.error ?? 'unauthorized' });
+  return { token: row.token, expiresAt: row.expires_at };
+}
+
 export async function getSession(token: string): Promise<{ email: string; expiresAt: string }> {
   const [row] = await rpc<{ email: string; expires_at: string }[]>('agbada_admin_session', { p_token: token });
   if (!row) throw toApiError({ message: 'unauthorized' });
