@@ -7,7 +7,7 @@ export function ProductImage({ product, eager = false }: { product: Pick<Product
   if (!product.image_url) {
     return (
       <div className="flex h-full w-full items-center justify-center bg-graphite">
-        <span className="font-serif text-2xl italic text-stone">Agbada Luxe</span>
+        <span className="font-serif text-2xl italic text-stone">Atelier Noir</span>
       </div>
     );
   }

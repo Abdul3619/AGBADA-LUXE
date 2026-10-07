@@ -38,8 +38,8 @@ function Header() {
       }`}
     >
       <div className="container-luxe flex h-20 items-center justify-between">
-        <Link to="/" className="font-serif text-2xl tracking-[0.18em] text-ivory md:text-[1.7rem]" aria-label="Agbada Luxe, home">
-          AGBADA <span className="italic tracking-[0.08em] text-gold">Luxe</span>
+        <Link to="/" className="font-serif text-2xl tracking-[0.18em] text-ivory md:text-[1.7rem]" aria-label="Atelier Noir, home">
+          ATELIER <span className="italic tracking-[0.08em] text-gold">Noir</span>
         </Link>
         <nav className="hidden items-center gap-10 md:flex" aria-label="Main">
           {NAV.map((item) => (
@@ -179,7 +179,7 @@ function Footer() {
         </div>
       </div>
       <div className="container-luxe flex flex-col gap-3 border-t border-line py-8 text-xs tracking-wide text-stone sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Agbada Luxe. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Atelier Noir. All rights reserved.</p>
         {settings.address && <p>{settings.address}</p>}
         <p>
           Built by Abdulwahab Abdullahi ·{' '}

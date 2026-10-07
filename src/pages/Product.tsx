@@ -30,7 +30,7 @@ export default function ProductPage() {
   if (product === null) return <NotFound />;
 
   const whatsapp = product && settings.whatsapp
-    ? whatsappLink(settings.whatsapp, `Hello, I am interested in "${product.name}" from the Agbada Luxe collection.`)
+    ? whatsappLink(settings.whatsapp, `Hello, I am interested in "${product.name}" from the Atelier Noir collection.`)
     : null;
 
   return (

@@ -21,7 +21,7 @@ export default function Collection() {
   return (
     <div className="container-luxe pt-40 md:pt-48">
       <Reveal>
-        <p className="eyebrow">Agbada Luxe</p>
+        <p className="eyebrow">Atelier Noir</p>
         <h1 className="display mt-5 text-6xl text-ivory md:text-8xl">The Collection</h1>
       </Reveal>
 

@@ -14,14 +14,14 @@ export default function About() {
       <div className="grid gap-16 md:grid-cols-12">
         <Reveal className="md:col-span-6">
           <p className="eyebrow">The house</p>
-          <h1 className="display mt-5 text-6xl text-ivory md:text-8xl">{settings.about_title || 'Agbada Luxe'}</h1>
+          <h1 className="display mt-5 text-6xl text-ivory md:text-8xl">{settings.about_title || 'Atelier Noir'}</h1>
           <div className="mt-10 space-y-6 text-lg text-sand">
             {body
               ? body.split(/\n{2,}/).map((para, i) => <p key={i} className="whitespace-pre-line">{para}</p>)
               : loaded && (
                   <p>
-                    Agbada Luxe makes agbada, ceremonial wear and bespoke tailoring. Explore the collection, or book a consultation
-                    to have a piece made for you.
+                    Atelier Noir makes ceremonial wear and bespoke tailoring drawn from traditions worldwide. Explore the
+                    collection, or book a consultation to have a piece made for you.
                   </p>
                 )}
           </div>
